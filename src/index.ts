@@ -2,7 +2,7 @@ import "reflect-metadata";
 import dotenv from "dotenv";
 import express from "express";
 
-import AppBuilder from "./appBuilder";
+import AppBuilder from "./AppBuilder";
 import errorMiddleware from "./middleware/error.middleware";
 import urlNotFoundMiddleWare from "./middleware/urlNotFound.middleware";
 import corsMiddleware from "./middleware/cors.middleware";
