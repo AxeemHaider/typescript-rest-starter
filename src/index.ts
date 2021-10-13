@@ -18,6 +18,7 @@ appBuilder
   .addMiddleware(express.json())
   .addMiddleware(corsMiddleware())
   .initializeControllers()
+  .enableOpenapiDocs()
   .addMiddleware(urlNotFoundMiddleWare)
   .addMiddleware(errorMiddleware)
   .build(portNumber, () => console.log("Listing on Port", portNumber));

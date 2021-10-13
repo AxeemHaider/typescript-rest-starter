@@ -3,6 +3,8 @@ import path from "path";
 import { Express, NextFunction, Request, Response } from "express";
 import BaseController from "./controller/Base.controller";
 import Container from "typedi";
+import swaggerUI from "swagger-ui-express";
+import openapiSpecification from "./OpenapiSpecification";
 
 type MiddlewareHandlerType = (
   req: Request,
@@ -56,6 +58,15 @@ class AppBuilder {
       process.exit(1);
     }
 
+    return this;
+  }
+
+  public enableOpenapiDocs(docsURL?: string) {
+    this.app.use(
+      docsURL || "/",
+      swaggerUI.serve,
+      swaggerUI.setup(openapiSpecification)
+    );
     return this;
   }
 
