@@ -34,7 +34,7 @@ class WelcomeController extends BaseController {
   };
 
   private errorTestAsync = async () => {
-    this.welcomeService.asyncErrorTest();
+    await this.welcomeService.asyncErrorTest();
 
     return "should not see";
   };

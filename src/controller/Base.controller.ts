@@ -21,9 +21,6 @@ abstract class BaseController {
       // it will return Promise otherwise results;
       const exec = fn(req, res, next);
 
-      console.log("-----method type-----");
-      console.log(exec);
-
       if (exec instanceof Promise) {
         exec.then((result) => {
           res.status(200).json(result);
