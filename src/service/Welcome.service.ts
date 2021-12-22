@@ -1,6 +1,7 @@
 import { Service as AutoInjection } from "typedi";
 import MessageDTO from "../dto/request/Message.dto";
 import WelcomeDTO from "../dto/response/Welcome.dto";
+import NotFound from "../error/NotFound.error";
 import WelcomeRepo from "../repository/Welcome.repo";
 
 export interface IWelcomeService {
@@ -10,6 +11,7 @@ export interface IWelcomeService {
   helloToRepo(): Promise<WelcomeDTO>;
   reply(message: MessageDTO): WelcomeDTO;
   errorTest(): string;
+  asyncErrorTest(): Promise<void>;
 }
 
 @AutoInjection()
@@ -18,6 +20,10 @@ export class WelcomeService implements IWelcomeService {
 
   errorTest(): string {
     throw new Error("Error Test");
+  }
+
+  async asyncErrorTest(): Promise<void> {
+    throw new Error("Async error test");
   }
 
   reply(message: MessageDTO): WelcomeDTO {
@@ -29,6 +35,11 @@ export class WelcomeService implements IWelcomeService {
 
   async helloFromRepo(): Promise<WelcomeDTO> {
     const welcomeEntity = await this.welcomeRepo.getEntity("text");
+
+    if (!welcomeEntity) {
+      throw new NotFound("welcome entity not found");
+    }
+
     const welcome: WelcomeDTO = new WelcomeDTO();
     welcome.message = welcomeEntity.text;
 
