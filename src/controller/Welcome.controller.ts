@@ -23,10 +23,17 @@ class WelcomeController extends BaseController {
     this.addEndpoint("GET", "/hello-from-repo", this.helloFromRepo);
     this.addEndpoint("GET", "/reply", this.reply, validateRequest(MessageDTO));
     this.addEndpoint("GET", "/error-test", this.errorTest);
+    this.addAsyncEndpoint("GET", "/error-test-async", this.errorTestAsync);
   }
 
   private errorTest = () => {
     this.welcomeService.errorTest();
+
+    return "should not see";
+  };
+
+  private errorTestAsync = async () => {
+    await this.welcomeService.asyncErrorTest();
 
     return "should not see";
   };

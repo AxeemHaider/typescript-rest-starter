@@ -9,6 +9,7 @@ export interface IWelcomeService {
   helloFromRepo(): WelcomeDTO;
   reply(message: MessageDTO): WelcomeDTO;
   errorTest(): string;
+  asyncErrorTest(): Promise<void>;
 }
 
 @AutoInjection()
@@ -17,6 +18,10 @@ export class WelcomeService implements IWelcomeService {
 
   errorTest(): string {
     throw new Error("Error Test");
+  }
+
+  asyncErrorTest(): Promise<void> {
+    throw new Error("Async Error test");
   }
 
   reply(message: MessageDTO): WelcomeDTO {
