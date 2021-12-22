@@ -6,7 +6,8 @@ import WelcomeRepo from "../repository/Welcome.repo";
 export interface IWelcomeService {
   hello(): WelcomeDTO;
   saySomething(message: MessageDTO): WelcomeDTO;
-  helloFromRepo(): WelcomeDTO;
+  helloFromRepo(): Promise<WelcomeDTO>;
+  helloToRepo(): Promise<WelcomeDTO>;
   reply(message: MessageDTO): WelcomeDTO;
   errorTest(): string;
 }
@@ -26,10 +27,18 @@ export class WelcomeService implements IWelcomeService {
     return welcome;
   }
 
-  helloFromRepo(): WelcomeDTO {
-    const repoText = this.welcomeRepo.getText();
+  async helloFromRepo(): Promise<WelcomeDTO> {
+    const welcomeEntity = await this.welcomeRepo.getEntity("text");
     const welcome: WelcomeDTO = new WelcomeDTO();
-    welcome.message = repoText.text;
+    welcome.message = welcomeEntity.text;
+
+    return welcome;
+  }
+
+  async helloToRepo(): Promise<WelcomeDTO> {
+    const welcomeEntity = await this.welcomeRepo.saveEntity("text");
+    const welcome: WelcomeDTO = new WelcomeDTO();
+    welcome.message = welcomeEntity.text;
 
     return welcome;
   }

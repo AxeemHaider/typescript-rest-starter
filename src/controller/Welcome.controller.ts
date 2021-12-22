@@ -20,7 +20,8 @@ class WelcomeController extends BaseController {
       this.saySomething,
       validateRequest(MessageDTO)
     );
-    this.addEndpoint("GET", "/hello-from-repo", this.helloFromRepo);
+    this.addAsyncEndpoint("GET", "/hello-from-repo", this.helloFromRepo);
+    this.addAsyncEndpoint("GET", "/hello-to-repo", this.helloToRepo);
     this.addEndpoint("GET", "/reply", this.reply, validateRequest(MessageDTO));
     this.addEndpoint("GET", "/error-test", this.errorTest);
   }
@@ -39,8 +40,14 @@ class WelcomeController extends BaseController {
     return message;
   };
 
-  private helloFromRepo = () => {
-    const message = this.welcomeService.helloFromRepo();
+  private helloFromRepo = async () => {
+    const message = await this.welcomeService.helloFromRepo();
+
+    return message;
+  };
+
+  private helloToRepo = async () => {
+    const message = await this.welcomeService.helloToRepo();
 
     return message;
   };
