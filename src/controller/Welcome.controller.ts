@@ -24,7 +24,21 @@ class WelcomeController extends BaseController {
     this.addEndpoint("GET", "/reply", this.reply, validateRequest(MessageDTO));
     this.addEndpoint("GET", "/error-test", this.errorTest);
     this.addAsyncEndpoint("GET", "/error-test-async", this.errorTestAsync);
+    this.addEndpoint(
+      "GET",
+      "/validation-test/:name",
+      this.validationTest,
+      validateRequest({
+        inParams: [{ name: "name", type: "string" }],
+      })
+    );
   }
+
+  private validationTest = () => {
+    return {
+      message: "ok",
+    };
+  };
 
   private errorTest = () => {
     this.welcomeService.errorTest();
