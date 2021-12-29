@@ -2,6 +2,7 @@ import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { Service as AutoInjection } from "typedi";
 import MessageDTO from "../dto/request/Message.dto";
+import ParamMessageDTO from "../dto/request/ParamMessage.dto";
 import validateRequest from "../middleware/requestValidator.middleware";
 import { WelcomeService } from "../service/Welcome.service";
 import BaseController from "./Base.controller";
@@ -28,9 +29,7 @@ class WelcomeController extends BaseController {
       "GET",
       "/validation-test/:name",
       this.validationTest,
-      validateRequest({
-        inParams: [{ name: "name", type: "string" }],
-      })
+      validateRequest(ParamMessageDTO)
     );
   }
 
