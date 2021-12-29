@@ -1,5 +1,4 @@
 import { IsNotEmpty } from "class-validator";
-import BaseRequestDTO from "./BaseRequest.dto";
 
 /**
  * @openapi
@@ -12,7 +11,7 @@ import BaseRequestDTO from "./BaseRequest.dto";
  *           type: string
  *           description: Message text.
  */
-class MessageDTO extends BaseRequestDTO {
+class MessageDTO {
   @IsNotEmpty()
   text: string;
 }

@@ -44,6 +44,11 @@ const validateRequest = (DtoClass: any) => {
         const err = new BadRequest("Bad Request! Invalid request params");
         err.invalidParams = invalidParams;
         err.requestBody = requestParams;
+        err.req = {
+          body: req.body,
+          query: req.query,
+          params: req.params,
+        };
         err.validationFrom = validationFrom;
         next(err);
       }
