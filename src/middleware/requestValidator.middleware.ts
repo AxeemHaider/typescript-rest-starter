@@ -22,7 +22,7 @@ const validateRequest = (DtoClass: any) => {
 
       // Add query params in requested params which are going for validation
       const dto = new DtoClass();
-      if (dto.__inParams.length) {
+      if (dto.__inParams?.length) {
         validationFrom = "param-" + validationFrom;
         for (const param of dto.__inParams) {
           if (req.params[param]) {
